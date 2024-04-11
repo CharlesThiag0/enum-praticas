@@ -37,6 +37,10 @@ public class HourContract {
         this.hours = hours;
     }
 
+    public double totalValue(){
+        return valuePerHour * hours;
+    }
+
     @Override
     public String toString() {
         return "HourContract{" +
