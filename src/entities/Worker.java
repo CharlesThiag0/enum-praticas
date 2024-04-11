@@ -4,6 +4,7 @@ import entities.enums.WorkerLevel;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Worker {
@@ -59,8 +60,14 @@ public class Worker {
         return contract;
     }
 
-    public void setContract(List<HourContract> contract) {
-        this.contract = contract;
+    public void addContracts(HourContract hourContract){
+
+        this.contract.add(hourContract);
+    }
+
+    public void remove(HourContract hourContract) {
+
+        this.contract.remove(hourContract);
     }
 
     @Override
