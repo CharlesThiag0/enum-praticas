@@ -1,24 +1,22 @@
 package entities;
 
-import entities.enums.WorkerLevel;
-
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+
+import entities.enums.WorkerLevel;
 
 public class Worker {
     private String name;
     private WorkerLevel level;
-    private Double baseSalary;
+    private double baseSalary;
 
-    private Department  department;
-    private List<HourContract> contract = new ArrayList<>();
+    private Department department;
+    private List<HourContract> contracts = new ArrayList<>();
 
-    public Worker(){}
+    public Worker() {};
 
-    public Worker(String name, WorkerLevel level, Double baseSalary, Department department) {
+    public Worker(String name, WorkerLevel level, double baseSalary, Department department) {
         this.name = name;
         this.level = level;
         this.baseSalary = baseSalary;
@@ -41,11 +39,11 @@ public class Worker {
         this.level = level;
     }
 
-    public Double getBaseSalary() {
+    public double getBaseSalary() {
         return baseSalary;
     }
 
-    public void setBaseSalary(Double baseSalary) {
+    public void setBaseSalary(double baseSalary) {
         this.baseSalary = baseSalary;
     }
 
@@ -57,46 +55,29 @@ public class Worker {
         this.department = department;
     }
 
-    public List<HourContract> getContract() {
-        return contract;
-    }
-
-    public void addContracts(HourContract hourContract){
-
-        this.contract.add(hourContract);
+    public void addContract(HourContract hourContract) {
+        contracts.add(hourContract);
     }
 
     public void remove(HourContract hourContract) {
-
-        this.contract.remove(hourContract);
+        contracts.remove(hourContract);
     }
 
-    public Double income(Integer year, Integer month) {
+    public double income(int month, int year) {
         double sum = this.baseSalary;
-        Calendar cal = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
 
-        for(HourContract c : contract){
-            cal.setTime(c.getDate());
+        for(HourContract c : contracts) {
+            calendar.setTime(c.getDate());
 
-            int c_year = cal.get(Calendar.YEAR);
-            int c_month = 1 + cal.get(Calendar.MONTH); // adiciona mais1 porque começa com 0
+            int c_year = calendar.get(Calendar.YEAR);
+            int c_month = 1 + calendar.get(Calendar.MONTH);
 
-            if(year == c_year && month == c_month){
+            if(year == c_year && month == c_month) {
                 sum += c.totalValue();
             }
         }
 
         return sum;
-    }
-
-    @Override
-    public String toString() {
-        return "Worker{" +
-                "name='" + name + '\'' +
-                ", level=" + level +
-                ", baseSalary=" + baseSalary +
-                ", department=" + department +
-                ", contract=" + contract +
-                '}';
     }
 }
